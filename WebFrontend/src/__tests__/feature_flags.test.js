@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { FeatureFlagsProvider } from '../../src/context/FeatureFlagsContext';
 import { AuthProvider, useAuth } from '../../src/context/AuthContext';
@@ -30,21 +30,29 @@ function renderDashWithFlags() {
 describe('Feature flags - AI recommendations', () => {
   test('AI recommendations shown when REACT_APP_FEATURE_AI_RECS=true', async () => {
     process.env.REACT_APP_FEATURE_AI_RECS = 'true';
-    const { findByTestId, queryByTestId } = renderDashWithFlags();
+    renderDashWithFlags();
 
-    // Wait for dashboard heading
-    expect(await findByTestId('dashboard-heading')).toBeInTheDocument();
+    // Await authenticated cue or dashboard heading
+    // We expect the dashboard heading to appear when ProtectedRoute passes
+    const heading = await screen.findByTestId('dashboard-heading');
+    expect(heading).toBeInTheDocument();
 
     // Feature section should appear
-    expect(queryByTestId('ai-recs-section')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId('ai-recs-section')).toBeInTheDocument();
+    });
   });
 
   test('AI recommendations hidden when REACT_APP_FEATURE_AI_RECS=false', async () => {
     process.env.REACT_APP_FEATURE_AI_RECS = 'false';
-    const { findByTestId, queryByTestId } = renderDashWithFlags();
+    renderDashWithFlags();
 
-    expect(await findByTestId('dashboard-heading')).toBeInTheDocument();
+    const heading = await screen.findByTestId('dashboard-heading');
+    expect(heading).toBeInTheDocument();
+
     // Should be hidden
-    expect(queryByTestId('ai-recs-section')).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByTestId('ai-recs-section')).not.toBeInTheDocument();
+    });
   });
 });

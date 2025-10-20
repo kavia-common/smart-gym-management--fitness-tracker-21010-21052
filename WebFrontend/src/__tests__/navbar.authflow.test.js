@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Navbar from '../../src/components/Navbar';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthProvider, useAuth } from '../../src/context/AuthContext';
@@ -43,6 +43,6 @@ describe('Navbar auth links', () => {
 
     // Click logout returns to showing Login link
     fireEvent.click(screen.getByTestId('nav-logout'));
-    expect(await screen.findByTestId('nav-login')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByTestId('nav-login')).toBeInTheDocument());
   });
 });

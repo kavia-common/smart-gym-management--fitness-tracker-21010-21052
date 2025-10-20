@@ -23,6 +23,7 @@ describe('ProtectedRoute', () => {
       <AuthProvider>
         <MemoryRouter initialEntries={['/private']}>
           <Routes>
+            <Route path="/" element={<h1 data-testid="home-title">Smart Gym</h1>} />
             <Route path="/login" element={<h2 data-testid="login-heading">Login</h2>} />
             <Route
               path="/private"
@@ -46,6 +47,7 @@ describe('ProtectedRoute', () => {
         <MemoryRouter initialEntries={['/private']}>
           <LoginSetter email="member@ex.com" role="member" />
           <Routes>
+            <Route path="/" element={<h1 data-testid="home-title">Smart Gym</h1>} />
             <Route path="/login" element={<h2 data-testid="login-heading">Login</h2>} />
             <Route
               path="/private"
@@ -71,6 +73,7 @@ describe('ProtectedRoute', () => {
           <LoginSetter email="member@ex.com" role="member" />
           <Routes>
             <Route path="/" element={<h1 data-testid="home-title">Smart Gym</h1>} />
+            <Route path="/login" element={<h2 data-testid="login-heading">Login</h2>} />
             <Route
               path="/trainers"
               element={
@@ -93,6 +96,7 @@ describe('ProtectedRoute', () => {
           <LoginSetter email="trainer@ex.com" role="trainer" />
           <Routes>
             <Route path="/" element={<h1 data-testid="home-title">Smart Gym</h1>} />
+            <Route path="/login" element={<h2 data-testid="login-heading">Login</h2>} />
             <Route
               path="/trainers"
               element={

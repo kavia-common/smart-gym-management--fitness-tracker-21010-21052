@@ -19,7 +19,6 @@ function renderWithProviders(initialEntries = ['/']) {
     <FeatureFlagsProvider>
       <AuthProvider>
         <MemoryRouter initialEntries={initialEntries}>
-          <LoginSetter />
           <RoutesOnly />
         </MemoryRouter>
       </AuthProvider>
