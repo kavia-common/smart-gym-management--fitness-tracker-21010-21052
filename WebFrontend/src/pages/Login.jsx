@@ -26,8 +26,8 @@ export default function Login() {
   };
 
   return (
-    <main style={{ padding: 24 }}>
-      <h2>Login</h2>
+    <main role="main" data-testid="page-main" style={{ padding: 24 }}>
+      <h2 data-testid="login-heading">Login</h2>
       <form onSubmit={onSubmit} style={{ display: 'grid', gap: 12, maxWidth: 360 }}>
         <label>
           Email
@@ -44,7 +44,7 @@ export default function Login() {
             <option value="trainer">Trainer</option>
           </select>
         </label>
-        <button disabled={loading} type="submit">{loading ? 'Signing in...' : 'Login'}</button>
+        <button data-testid="login-submit" disabled={loading} type="submit">{loading ? 'Signing in...' : 'Login'}</button>
         {error && <p style={{ color: 'crimson' }}>{error}</p>}
       </form>
       <p style={{ marginTop: 12 }}>

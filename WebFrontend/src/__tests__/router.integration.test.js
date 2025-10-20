@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Router, { RoutesOnly } from '../../src/routes/Router';
+import { RoutesOnly } from '../../src/routes/Router';
 import { AuthProvider, useAuth } from '../../src/context/AuthContext';
 import { FeatureFlagsProvider } from '../../src/context/FeatureFlagsContext';
 
@@ -30,7 +30,7 @@ function renderWithProviders(initialEntries = ['/']) {
 describe('Router integration', () => {
   test('Home renders on root', async () => {
     renderWithProviders(['/']);
-    expect(await screen.findByText(/Smart Gym/i)).toBeInTheDocument();
+    expect(await screen.findByTestId('home-title')).toBeInTheDocument();
   });
 
   test('Protected /dashboard redirects to login when unauthenticated', async () => {
@@ -43,11 +43,11 @@ describe('Router integration', () => {
         </AuthProvider>
       </FeatureFlagsProvider>
     );
-    expect(await screen.findByText(/Login/i)).toBeInTheDocument();
+    expect(await screen.findByTestId('login-heading')).toBeInTheDocument();
   });
 
   test('/trainers accessible only by role=trainer', async () => {
-    // As member: redirected away
+    // As member: redirected away to home
     render(
       <FeatureFlagsProvider>
         <AuthProvider>
@@ -58,8 +58,7 @@ describe('Router integration', () => {
         </AuthProvider>
       </FeatureFlagsProvider>
     );
-    // Trainers page has heading "Trainer Panel"; as member it shouldn't appear, user lands on home
-    expect(await screen.findByText(/Smart Gym/i)).toBeInTheDocument();
+    expect(await screen.findByTestId('home-title')).toBeInTheDocument();
 
     // As trainer
     render(
@@ -72,6 +71,6 @@ describe('Router integration', () => {
         </AuthProvider>
       </FeatureFlagsProvider>
     );
-    expect(await screen.findByText(/Trainer Panel/i)).toBeInTheDocument();
+    expect(await screen.findByTestId('trainer-panel-heading')).toBeInTheDocument();
   });
 });

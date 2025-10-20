@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Router, { RoutesOnly } from '../../src/routes/Router';
+import { RoutesOnly } from '../../src/routes/Router';
 import { AuthProvider } from '../../src/context/AuthContext';
 import { FeatureFlagsProvider } from '../../src/context/FeatureFlagsContext';
 
@@ -16,12 +16,13 @@ function renderWithProviders(initialEntries = ['/']) {
   );
 }
 
-test('renders home on root', () => {
+test('renders home on root', async () => {
   renderWithProviders(['/']);
-  expect(screen.getByText(/Smart Gym/i)).toBeInTheDocument();
+  expect(await screen.findByTestId('home-title')).toBeInTheDocument();
 });
 
-test('protected route redirects to login when unauthenticated', () => {
+test('protected route redirects to login when unauthenticated', async () => {
   renderWithProviders(['/dashboard']);
-  expect(screen.getByText(/Login/i)).toBeInTheDocument();
+  // wait for redirect to login and heading appears
+  expect(await screen.findByTestId('login-heading')).toBeInTheDocument();
 });

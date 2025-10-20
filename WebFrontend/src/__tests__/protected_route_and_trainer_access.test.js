@@ -18,12 +18,12 @@ function DummyPage({ text }) {
 }
 
 describe('ProtectedRoute', () => {
-  test('redirects unauthenticated user to /login', () => {
+  test('redirects unauthenticated user to /login', async () => {
     render(
       <AuthProvider>
         <MemoryRouter initialEntries={['/private']}>
           <Routes>
-            <Route path="/login" element={<div>Login Page</div>} />
+            <Route path="/login" element={<h2 data-testid="login-heading">Login</h2>} />
             <Route
               path="/private"
               element={
@@ -37,7 +37,7 @@ describe('ProtectedRoute', () => {
       </AuthProvider>
     );
 
-    expect(screen.getByText(/Login Page/i)).toBeInTheDocument();
+    expect(await screen.findByTestId('login-heading')).toBeInTheDocument();
   });
 
   test('allows authenticated user to access protected page', async () => {
@@ -46,7 +46,7 @@ describe('ProtectedRoute', () => {
         <MemoryRouter initialEntries={['/private']}>
           <LoginSetter email="member@ex.com" role="member" />
           <Routes>
-            <Route path="/login" element={<div>Login Page</div>} />
+            <Route path="/login" element={<h2 data-testid="login-heading">Login</h2>} />
             <Route
               path="/private"
               element={
@@ -70,12 +70,12 @@ describe('ProtectedRoute', () => {
         <MemoryRouter initialEntries={['/trainers']}>
           <LoginSetter email="member@ex.com" role="member" />
           <Routes>
-            <Route path="/" element={<div>Home</div>} />
+            <Route path="/" element={<h1 data-testid="home-title">Smart Gym</h1>} />
             <Route
               path="/trainers"
               element={
                 <ProtectedRoute requiredRole="trainer">
-                  <DummyPage text="Trainer Panel" />
+                  <h2 data-testid="trainer-panel-heading">Trainer Panel</h2>
                 </ProtectedRoute>
               }
             />
@@ -84,7 +84,7 @@ describe('ProtectedRoute', () => {
       </AuthProvider>
     );
     // Should land on Home instead of Trainer Panel
-    expect(await screen.findByText(/Home/i)).toBeInTheDocument();
+    expect(await screen.findByTestId('home-title')).toBeInTheDocument();
 
     // Now as trainer should access
     rerender(
@@ -92,12 +92,12 @@ describe('ProtectedRoute', () => {
         <MemoryRouter initialEntries={['/trainers']}>
           <LoginSetter email="trainer@ex.com" role="trainer" />
           <Routes>
-            <Route path="/" element={<div>Home</div>} />
+            <Route path="/" element={<h1 data-testid="home-title">Smart Gym</h1>} />
             <Route
               path="/trainers"
               element={
                 <ProtectedRoute requiredRole="trainer">
-                  <DummyPage text="Trainer Panel" />
+                  <h2 data-testid="trainer-panel-heading">Trainer Panel</h2>
                 </ProtectedRoute>
               }
             />
@@ -106,6 +106,6 @@ describe('ProtectedRoute', () => {
       </AuthProvider>
     );
 
-    expect(await screen.findByText(/Trainer Panel/i)).toBeInTheDocument();
+    expect(await screen.findByTestId('trainer-panel-heading')).toBeInTheDocument();
   });
 });

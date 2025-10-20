@@ -26,8 +26,8 @@ export default function Dashboard() {
   }, [flags.AI_RECS]);
 
   return (
-    <main style={{ padding: 24 }}>
-      <h2>Dashboard</h2>
+    <main role="main" data-testid="page-main" style={{ padding: 24 }}>
+      <h2 data-testid="dashboard-heading">Dashboard</h2>
       <p>Welcome back, {user?.email}!</p>
       <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginTop: 12 }}>
         <div style={cardStyle}>
@@ -41,7 +41,7 @@ export default function Dashboard() {
       </div>
 
       {flags.AI_RECS && (
-        <section style={{ marginTop: 24 }}>
+        <section data-testid="ai-recs-section" style={{ marginTop: 24 }}>
           <h3>AI Recommendations</h3>
           <ul>
             {aiRecs.map((r, idx) => <li key={idx}>{r}</li>)}

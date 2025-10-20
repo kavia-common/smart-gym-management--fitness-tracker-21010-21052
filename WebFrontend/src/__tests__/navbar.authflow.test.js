@@ -24,8 +24,8 @@ describe('Navbar auth links', () => {
         </AuthProvider>
       </FeatureFlagsProvider>
     );
-    expect(screen.getByText(/Login/i)).toBeInTheDocument();
-    expect(screen.getByText(/Register/i)).toBeInTheDocument();
+    expect(screen.getByTestId('nav-login')).toBeInTheDocument();
+    expect(screen.getByTestId('nav-register')).toBeInTheDocument();
 
     // Logged in state
     rerender(
@@ -39,10 +39,10 @@ describe('Navbar auth links', () => {
       </FeatureFlagsProvider>
     );
 
-    expect(await screen.findByText(/Logout/i)).toBeInTheDocument();
+    expect(await screen.findByTestId('nav-logout')).toBeInTheDocument();
 
     // Click logout returns to showing Login link
-    fireEvent.click(screen.getByText(/Logout/i));
-    expect(await screen.findByText(/Login/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByTestId('nav-logout'));
+    expect(await screen.findByTestId('nav-login')).toBeInTheDocument();
   });
 });

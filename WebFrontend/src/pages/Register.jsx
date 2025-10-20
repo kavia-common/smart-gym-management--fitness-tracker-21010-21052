@@ -26,8 +26,8 @@ export default function Register() {
   };
 
   return (
-    <main style={{ padding: 24 }}>
-      <h2>Register</h2>
+    <main role="main" data-testid="page-main" style={{ padding: 24 }}>
+      <h2 data-testid="register-heading">Register</h2>
       <form onSubmit={onSubmit} style={{ display: 'grid', gap: 12, maxWidth: 360 }}>
         <label>
           Email

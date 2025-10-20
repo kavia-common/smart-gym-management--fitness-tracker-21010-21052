@@ -19,8 +19,8 @@ export default function Trainers() {
   };
 
   return (
-    <main style={{ padding: 24 }}>
-      <h2>Trainer Panel</h2>
+    <main role="main" data-testid="page-main" style={{ padding: 24 }}>
+      <h2 data-testid="trainer-panel-heading">Trainer Panel</h2>
       <TrainerAssignCard members={members} plans={plans} onAssign={onAssign} />
     </main>
   );

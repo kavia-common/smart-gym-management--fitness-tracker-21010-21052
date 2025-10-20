@@ -6,25 +6,25 @@ import NotificationBell from './NotificationBell';
 export default function Navbar() {
   const { user, logout } = useAuth();
   return (
-    <nav className="navbar" style={navStyle}>
+    <nav className="navbar" style={navStyle} role="navigation" aria-label="Main navigation">
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <Link to="/" className="App-link">Smart Gym</Link>
-        <Link to="/dashboard" className="App-link">Dashboard</Link>
-        <Link to="/workouts" className="App-link">Workouts</Link>
-        <Link to="/profile" className="App-link">Profile</Link>
-        <Link to="/trainers" className="App-link">Trainers</Link>
+        <Link data-testid="nav-home" to="/" className="App-link">Smart Gym</Link>
+        <Link data-testid="nav-dashboard" to="/dashboard" className="App-link">Dashboard</Link>
+        <Link data-testid="nav-workouts" to="/workouts" className="App-link">Workouts</Link>
+        <Link data-testid="nav-profile" to="/profile" className="App-link">Profile</Link>
+        <Link data-testid="nav-trainers" to="/trainers" className="App-link">Trainers</Link>
       </div>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
         <NotificationBell />
         {user ? (
           <>
             <span style={{ fontSize: 12, opacity: 0.8 }}>{user.email} ({user.role})</span>
-            <button onClick={logout}>Logout</button>
+            <button data-testid="nav-logout" onClick={logout}>Logout</button>
           </>
         ) : (
           <>
-            <Link to="/login" className="App-link">Login</Link>
-            <Link to="/register" className="App-link">Register</Link>
+            <Link data-testid="nav-login" to="/login" className="App-link">Login</Link>
+            <Link data-testid="nav-register" to="/register" className="App-link">Register</Link>
           </>
         )}
       </div>

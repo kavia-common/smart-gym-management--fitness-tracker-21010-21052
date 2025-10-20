@@ -30,21 +30,21 @@ function renderDashWithFlags() {
 describe('Feature flags - AI recommendations', () => {
   test('AI recommendations shown when REACT_APP_FEATURE_AI_RECS=true', async () => {
     process.env.REACT_APP_FEATURE_AI_RECS = 'true';
-    const { findByText, queryByText } = renderDashWithFlags();
+    const { findByTestId, queryByTestId } = renderDashWithFlags();
 
     // Wait for dashboard heading
-    expect(await findByText(/Dashboard/i)).toBeInTheDocument();
+    expect(await findByTestId('dashboard-heading')).toBeInTheDocument();
 
     // Feature section should appear
-    expect(queryByText(/AI Recommendations/i)).toBeInTheDocument();
+    expect(queryByTestId('ai-recs-section')).toBeInTheDocument();
   });
 
   test('AI recommendations hidden when REACT_APP_FEATURE_AI_RECS=false', async () => {
     process.env.REACT_APP_FEATURE_AI_RECS = 'false';
-    const { findByText, queryByText } = renderDashWithFlags();
+    const { findByTestId, queryByTestId } = renderDashWithFlags();
 
-    expect(await findByText(/Dashboard/i)).toBeInTheDocument();
+    expect(await findByTestId('dashboard-heading')).toBeInTheDocument();
     // Should be hidden
-    expect(queryByText(/AI Recommendations/i)).not.toBeInTheDocument();
+    expect(queryByTestId('ai-recs-section')).not.toBeInTheDocument();
   });
 });
