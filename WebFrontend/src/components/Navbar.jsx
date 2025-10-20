@@ -8,18 +8,24 @@ export default function Navbar() {
   return (
     <nav className="navbar" style={navStyle} role="navigation" aria-label="Main navigation">
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <Link data-testid="nav-home" to="/" className="App-link">Smart Gym</Link>
-        <Link data-testid="nav-dashboard" to="/dashboard" className="App-link">Dashboard</Link>
-        <Link data-testid="nav-workouts" to="/workouts" className="App-link">Workouts</Link>
-        <Link data-testid="nav-profile" to="/profile" className="App-link">Profile</Link>
-        <Link data-testid="nav-trainers" to="/trainers" className="App-link">Trainers</Link>
+        <Link data-testid="nav-home" to="/" className="App-link" style={{ fontWeight: 700 }}>Smart Gym</Link>
+        {user && (
+          <>
+            <Link data-testid="nav-dashboard" to="/dashboard" className="App-link">Dashboard</Link>
+            <Link data-testid="nav-workouts" to="/workouts" className="App-link">Workouts</Link>
+            <Link data-testid="nav-profile" to="/profile" className="App-link">Profile</Link>
+            {user.role === 'trainer' && (
+              <Link data-testid="nav-trainers" to="/trainers" className="App-link">Trainers</Link>
+            )}
+          </>
+        )}
       </div>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <NotificationBell />
+        {user && <NotificationBell />}
         {user ? (
           <>
             <span style={{ fontSize: 12, opacity: 0.8 }}>{user.email} ({user.role})</span>
-            <button data-testid="nav-logout" onClick={logout}>Logout</button>
+            <button data-testid="nav-logout" onClick={logout} style={logoutBtnStyle}>Logout</button>
           </>
         ) : (
           <>
@@ -37,4 +43,14 @@ const navStyle = {
   display: 'flex',
   justifyContent: 'space-between',
   borderBottom: '1px solid var(--border-color)'
+};
+
+const logoutBtnStyle = {
+  padding: '6px 12px',
+  borderRadius: 6,
+  border: '1px solid var(--border-color)',
+  backgroundColor: 'var(--bg-secondary)',
+  color: 'var(--text-primary)',
+  cursor: 'pointer',
+  fontSize: 14
 };

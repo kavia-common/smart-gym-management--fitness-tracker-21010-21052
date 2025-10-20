@@ -2,15 +2,40 @@
 
 This React app provides the member/trainer UI: auth (mock), workout logging, trainer assignment UI, feature flags, and Supabase placeholders.
 
-## Run
+## Quick Preview
 
-- Copy `.env.example` to `.env` and adjust as needed. Defaults are safe.
-- Install dependencies:
-  npm install
-- Start dev server (port 3000):
-  npm start
+The app runs in **mock mode** by default - no backend or Supabase required!
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start the dev server (port 3000):**
+   ```bash
+   npm start
+   ```
+
+3. **Navigate the app:**
+   - **Home** → See welcome page with feature overview
+   - **Login** → Use any email/password (e.g., user@example.com / password)
+   - **Select Role** → Choose "Member" or "Trainer" to see different features
+   - **Dashboard** → View workout stats, AI recommendations, and quick actions
+   - **Workouts** → Log new workouts and see your history
+   - **Trainers** → (Trainer role only) Assign workout plans to members
 
 Port: 3000
+
+## Mock Mode (Default)
+
+The app uses in-memory mock data by default. All features work without any backend:
+- ✅ Login/Register (any credentials work)
+- ✅ Dashboard with stats and AI recommendations
+- ✅ Workout logging and tracking
+- ✅ Trainer assignment features
+- ✅ Feature flags enabled (AI recs, notifications)
+
+To toggle mock mode, see `.env.example` and adjust `REACT_APP_USE_MOCK_API`.
 
 ## Environment (.env.example keys)
 - REACT_APP_API_BASE_URL=https://your-backend.example.com

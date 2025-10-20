@@ -4,6 +4,7 @@ import Router from './routes/Router';
 import { AuthProvider } from './context/AuthContext';
 import { FeatureFlagsProvider } from './context/FeatureFlagsContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 // PUBLIC_INTERFACE
 function App() {
@@ -19,7 +20,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <button
         className="theme-toggle"
         onClick={toggleTheme}
@@ -31,6 +32,7 @@ function App() {
         <AuthProvider>
           <Navbar />
           <Router />
+          <Footer />
         </AuthProvider>
       </FeatureFlagsProvider>
     </div>
