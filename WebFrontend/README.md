@@ -10,10 +10,32 @@ This React app provides the member/trainer UI: auth (mock), workout logging, tra
 - Start dev server (port 3000):
   npm start
 
+Port: 3000
+
+## Environment (.env.example keys)
+- REACT_APP_API_BASE_URL=https://your-backend.example.com
+- REACT_APP_USE_MOCK_API=true
+- REACT_APP_FEATURE_AI_RECS=true
+- REACT_APP_FEATURE_NOTIFICATIONS=true
+- REACT_APP_FEATURE_REALTIME=false
+- REACT_APP_FEATURE_AUDIT_HOOKS=false
+- REACT_APP_MOCK_API_DELAY_MS=300
+- REACT_APP_MOCK_API_ERROR=false
+- REACT_APP_SUPABASE_URL=
+- REACT_APP_SUPABASE_ANON_KEY=
+
+## API client
+- Core methods available: { get, post, put, delete } returning a normalized shape { data, error }.
+- Domain helpers (getWorkouts, addWorkout, etc.) use the same normalized error handling internally.
+- Toggle between Mock vs Real API via REACT_APP_USE_MOCK_API:
+  - true: uses in-memory mockApi with optional delay/error simulation.
+  - false: uses fetch against REACT_APP_API_BASE_URL.
+
 ## Feature Flags (REACT_APP_*)
 - REACT_APP_FEATURE_AI_RECS=true: Show AI recommendations on Dashboard.
 - REACT_APP_FEATURE_NOTIFICATIONS=true: Show NotificationBell.
-- REACT_APP_USE_MOCK_API=true: Use mock API for data flows (default true).
+- REACT_APP_FEATURE_REALTIME=false: Enable Supabase realtime subscription helpers.
+- REACT_APP_FEATURE_AUDIT_HOOKS=false: Reserved for admin/audit UX toggles.
 
 ## Supabase
 If REACT_APP_SUPABASE_URL and REACT_APP_SUPABASE_ANON_KEY are not provided, the app will no-op and won't crash. Realtime helper returns a no-op unsubscribe function.
