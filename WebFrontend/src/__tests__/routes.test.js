@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Router from '../../src/routes/Router';
+import Router, { RoutesOnly } from '../../src/routes/Router';
 import { AuthProvider } from '../../src/context/AuthContext';
 import { FeatureFlagsProvider } from '../../src/context/FeatureFlagsContext';
 
@@ -9,7 +9,7 @@ function renderWithProviders(initialEntries = ['/']) {
     <FeatureFlagsProvider>
       <AuthProvider>
         <MemoryRouter initialEntries={initialEntries}>
-          <Router />
+          <RoutesOnly />
         </MemoryRouter>
       </AuthProvider>
     </FeatureFlagsProvider>

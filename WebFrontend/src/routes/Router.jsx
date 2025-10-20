@@ -10,51 +10,63 @@ import Trainers from '../pages/Trainers';
 import NotFound from '../pages/NotFound';
 import ProtectedRoute from '../components/ProtectedRoute';
 
-/** Router config for the app */
+/**
+ * PUBLIC_INTERFACE
+ */
+// PUBLIC_INTERFACE
+export function RoutesOnly() {
+  /** Renders only the <Routes> with all route elements for testability */
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/workouts"
+        element={
+          <ProtectedRoute>
+            <Workouts />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trainers"
+        element={
+          <ProtectedRoute requiredRole="trainer">
+            <Trainers />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
+
+/** Router config for the app (default export) */
 export default function Router() {
+  /** Wraps RoutesOnly in a BrowserRouter for runtime usage */
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/workouts"
-          element={
-            <ProtectedRoute>
-              <Workouts />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/trainers"
-          element={
-            <ProtectedRoute requiredRole="trainer">
-              <Trainers />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <RoutesOnly />
     </BrowserRouter>
   );
 }

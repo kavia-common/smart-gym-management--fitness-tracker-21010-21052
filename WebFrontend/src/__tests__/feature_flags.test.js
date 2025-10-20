@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { FeatureFlagsProvider } from '../../src/context/FeatureFlagsContext';
 import { AuthProvider, useAuth } from '../../src/context/AuthContext';
-import ProtectedRoute from '../../src/components/ProtectedRoute';
-import Dashboard from '../../src/pages/Dashboard';
+import { RoutesOnly } from '../../src/routes/Router';
 
 // Helper to set logged-in user so dashboard renders
 function LoginSetter({ role = 'member' }) {
@@ -21,16 +20,7 @@ function renderDashWithFlags() {
       <AuthProvider>
         <MemoryRouter initialEntries={['/dashboard']}>
           <LoginSetter />
-          <Routes>
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
+          <RoutesOnly />
         </MemoryRouter>
       </AuthProvider>
     </FeatureFlagsProvider>
