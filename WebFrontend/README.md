@@ -1,82 +1,35 @@
-# Lightweight React Template for KAVIA
+# WebFrontend - Smart Gym
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+This React app provides the member/trainer UI: auth (mock), workout logging, trainer assignment UI, feature flags, and Supabase placeholders.
 
-## Features
+## Run
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Copy `.env.example` to `.env` and adjust as needed. Defaults are safe.
+- Install dependencies:
+  npm install
+- Start dev server (port 3000):
+  npm start
 
-## Getting Started
+## Feature Flags (REACT_APP_*)
+- REACT_APP_FEATURE_AI_RECS=true: Show AI recommendations on Dashboard.
+- REACT_APP_FEATURE_NOTIFICATIONS=true: Show NotificationBell.
+- REACT_APP_USE_MOCK_API=true: Use mock API for data flows (default true).
 
-In the project directory, you can run:
+## Supabase
+If REACT_APP_SUPABASE_URL and REACT_APP_SUPABASE_ANON_KEY are not provided, the app will no-op and won't crash. Realtime helper returns a no-op unsubscribe function.
 
-### `npm start`
+## Routes
+- /            Home
+- /login       Login
+- /register    Register
+- /dashboard   Protected
+- /profile     Protected
+- /workouts    Protected
+- /trainers    Protected + role=trainer
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Auth (Mock)
+Login/Register forms accept any credentials. Role selection controls access to /trainers.
 
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
-
-### Components
-
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
-
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Tests
+Basic smoke tests for auth/context, routing, and workout mock flow:
+  npm test
