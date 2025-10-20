@@ -9,7 +9,9 @@ import { RoutesOnly } from '../../src/routes/Router';
 function LoginSetter({ role = 'member' }) {
   const { login } = useAuth();
   React.useEffect(() => {
-    login({ email: 'user@ex.com', password: 'x', role });
+    (async () => {
+      await login({ email: 'user@ex.com', password: 'x', role });
+    })();
   }, [role, login]);
   return null;
 }
@@ -32,8 +34,7 @@ describe('Feature flags - AI recommendations', () => {
     process.env.REACT_APP_FEATURE_AI_RECS = 'true';
     renderDashWithFlags();
 
-    // Await authenticated cue or dashboard heading
-    // We expect the dashboard heading to appear when ProtectedRoute passes
+    // Await dashboard after ProtectedRoute allows
     const heading = await screen.findByTestId('dashboard-heading');
     expect(heading).toBeInTheDocument();
 

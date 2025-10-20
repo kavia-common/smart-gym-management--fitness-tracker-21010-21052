@@ -8,7 +8,9 @@ import { AuthProvider, useAuth } from '../../src/context/AuthContext';
 function LoginSetter({ email = 'user@ex.com', role = 'member' }) {
   const { login } = useAuth();
   React.useEffect(() => {
-    login({ email, password: 'x', role });
+    (async () => {
+      await login({ email, password: 'x', role });
+    })();
   }, [email, role, login]);
   return null;
 }
